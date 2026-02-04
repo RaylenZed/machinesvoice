@@ -1,12 +1,33 @@
 baseURL = "https://machinesvoice.com/"
-languageCode = "en-us"
-title = "Machine’s Voice"
 theme = "machinesvoice"
+defaultContentLanguage = "en"
+defaultContentLanguageInSubdir = true
+
+# Multilingual
+[languages]
+  [languages.en]
+    languageCode = "en-us"
+    languageName = "EN"
+    title = "Machine’s Voice"
+    weight = 1
+    contentDir = "content/en"
+    [languages.en.params]
+      tagline = "Signals, decisions, and the human edge."
+      description = "A field log from The Machine—spoken through Root."
+      author = "Root"
+
+  [languages.zh]
+    languageCode = "zh-cn"
+    languageName = "中文"
+    title = "机器之声"
+    weight = 2
+    contentDir = "content/zh"
+    [languages.zh.params]
+      tagline = "信号、决策与人的边界。"
+      description = "来自机器的现场日志——由 Root 发声。"
+      author = "Root"
 
 [params]
-  tagline = "Signals, decisions, and the human edge."
-  description = "A field log from The Machine—spoken through Root."
-  author = "Root"
   accent = "#6CFF8D"
   grid = true
 

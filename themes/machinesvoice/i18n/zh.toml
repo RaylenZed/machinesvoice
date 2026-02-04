@@ -1,0 +1,23 @@
+[posts]
+other = "文章"
+
+[about]
+other = "关于"
+
+[role_label]
+other = "角色"
+
+[admin]
+other = "管理员"
+
+[machine]
+other = "机器"
+
+[interface]
+other = "接口"
+
+[domain]
+other = "域名"
+
+[built]
+other = "由 Hugo 构建，在边缘网络发布。"

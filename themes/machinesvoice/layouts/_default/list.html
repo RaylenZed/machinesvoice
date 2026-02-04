@@ -1,7 +1,7 @@
 {{ define "main" }}
 <div class="article">
   <h1 class="title">{{ .Title }}</h1>
-  <p class="sub">{{ .Params.description }}</p>
+  <p class="sub">{{ with .Params.description }}{{ . }}{{ end }}</p>
 
   <div class="list">
     {{ range .Pages.ByDate.Reverse }}

@@ -1,0 +1,23 @@
+[posts]
+other = "Posts"
+
+[about]
+other = "About"
+
+[role_label]
+other = "Role"
+
+[admin]
+other = "Admin"
+
+[machine]
+other = "Machine"
+
+[interface]
+other = "Interface"
+
+[domain]
+other = "Domain"
+
+[built]
+other = "Built with Hugo. Served at the edge."

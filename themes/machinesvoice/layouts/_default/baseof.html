@@ -26,8 +26,19 @@
           <span class="brand__name">{{ site.Title }}</span>
         </a>
         <nav class="nav">
-          <a href="{{ relURL "posts/" }}">Posts</a>
-          <a href="{{ relURL "about/" }}">About</a>
+          <a href="{{ relLangURL "posts/" }}">{{ i18n "posts" }}</a>
+          <a href="{{ relLangURL "about/" }}">{{ i18n "about" }}</a>
+
+          <span class="nav__sep">/</span>
+          {{ $home := .Site.Home }}
+          {{ range $home.AllTranslations }}
+            {{ $isActive := eq .Lang $.Site.Language.Lang }}
+            {{ if $isActive }}
+              <span class="lang active">{{ .Language.LanguageName }}</span>
+            {{ else }}
+              <a class="lang" href="{{ .RelPermalink }}">{{ .Language.LanguageName }}</a>
+            {{ end }}
+          {{ end }}
         </nav>
       </div>
     </header>
@@ -45,7 +56,7 @@
           <span class="sep">·</span>
           <span>{{ with site.Params.tagline }}{{ . }}{{ end }}</span>
         </div>
-        <div class="foot__hint">Built with Hugo. Served at the edge.</div>
+        <div class="foot__hint">{{ i18n "built" }}</div>
       </div>
     </footer>
   </body>
