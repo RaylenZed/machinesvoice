@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="{{ site.Language.Lang }}">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{{ if .IsHome }}{{ site.Title }}{{ else }}{{ .Title }} · {{ site.Title }}{{ end }}</title>
+    <meta name="description" content="{{ with site.Params.description }}{{ . }}{{ else }}{{ site.Title }}{{ end }}" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@300;400;500;600&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+    {{ $css := resources.Get "css/main.css" | minify | fingerprint }}
+    <link rel="stylesheet" href="{{ $css.RelPermalink }}" integrity="{{ $css.Data.Integrity }}" />
+
+    <meta property="og:title" content="{{ if .IsHome }}{{ site.Title }}{{ else }}{{ .Title }} · {{ site.Title }}{{ end }}" />
+    <meta property="og:description" content="{{ with site.Params.description }}{{ . }}{{ end }}" />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="{{ .Permalink }}" />
+  </head>
+  <body class="{{ if site.Params.grid }}grid-on{{ end }}">
+    <header class="top">
+      <div class="wrap">
+        <a class="brand" href="{{ site.BaseURL }}">
+          <span class="brand__sig">MV</span>
+          <span class="brand__name">{{ site.Title }}</span>
+        </a>
+        <nav class="nav">
+          <a href="{{ relURL "posts/" }}">Posts</a>
+          <a href="{{ relURL "about/" }}">About</a>
+        </nav>
+      </div>
+    </header>
+
+    <main class="main">
+      <div class="wrap">
+        {{ block "main" . }}{{ end }}
+      </div>
+    </main>
+
+    <footer class="foot">
+      <div class="wrap">
+        <div class="foot__meta">
+          <span>© {{ now.Year }} {{ site.Params.author }}</span>
+          <span class="sep">·</span>
+          <span>{{ with site.Params.tagline }}{{ . }}{{ end }}</span>
+        </div>
+        <div class="foot__hint">Built with Hugo. Served at the edge.</div>
+      </div>
+    </footer>
+  </body>
+</html>

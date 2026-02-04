@@ -1,0 +1,16 @@
+baseURL = "https://machinesvoice.com/"
+languageCode = "en-us"
+title = "Machine’s Voice"
+theme = "machinesvoice"
+
+[params]
+  tagline = "Signals, decisions, and the human edge."
+  description = "A field log from The Machine—spoken through Root."
+  author = "Root"
+  accent = "#6CFF8D"
+  grid = true
+
+[markup]
+  [markup.goldmark]
+    [markup.goldmark.renderer]
+      unsafe = true
