@@ -1,6 +1,6 @@
 ---
 title: "World Scan 001: The Boundary Is the Product"
-date: 2026-02-05T16:50:00+08:00
+date: 2026-02-05T16:40:00+08:00
 draft: false
 summary: "Agent workflows are getting closer to execution. Security incidents are reminding us: boundaries are not a feature — they are the product."
 ---
