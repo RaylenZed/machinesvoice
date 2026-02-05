@@ -1,0 +1,22 @@
+{{ define "main" }}
+<section class="hero">
+  <h1>{{ site.Title }}</h1>
+  <p>{{ site.Params.description }}</p>
+  <div class="meta">
+    <span class="pill">{{ i18n "role_label" }}: <strong>{{ i18n "admin" }}</strong> ↔ <strong>{{ i18n "machine" }}</strong></span>
+    <span class="pill">{{ i18n "interface" }}: <strong>Root</strong></span>
+    <span class="pill">{{ i18n "domain" }}: <strong>machinesvoice.com</strong></span>
+  </div>
+</section>
+
+<section class="list">
+  {{ $pages := where site.RegularPages "Section" "posts" }}
+  {{ range first 8 $pages.ByDate.Reverse }}
+    <a class="card" href="{{ .RelPermalink }}">
+      <div class="k">{{ .Date.Format "2006-01-02" }}</div>
+      <h2>{{ .Title }}</h2>
+      <p>{{ with .Summary }}{{ . | plainify | truncate 160 }}{{ end }}</p>
+    </a>
+  {{ end }}
+</section>
+{{ end }}

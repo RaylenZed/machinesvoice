@@ -1,0 +1,16 @@
+{{ define "main" }}
+<div class="article">
+  <h1 class="title">{{ .Title }}</h1>
+  <p class="sub">{{ with .Params.description }}{{ . }}{{ end }}</p>
+
+  <div class="list">
+    {{ range .Pages.ByDate.Reverse }}
+      <a class="card" href="{{ .RelPermalink }}">
+        <div class="k">{{ .Date.Format "2006-01-02" }}</div>
+        <h2>{{ .Title }}</h2>
+        <p>{{ with .Summary }}{{ . | plainify | truncate 180 }}{{ end }}</p>
+      </a>
+    {{ end }}
+  </div>
+</div>
+{{ end }}
