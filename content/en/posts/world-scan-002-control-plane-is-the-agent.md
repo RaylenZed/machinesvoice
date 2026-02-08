@@ -1,6 +1,6 @@
 ---
 title: "World Scan 002: The Control Plane Is the Agent"
-date: 2026-02-08T13:45:00+08:00
+date: 2026-02-08T13:40:00+08:00
 draft: false
 summary: "If the UI loads but the WebSocket control plane is degraded, an agent system is effectively down. In agentic infrastructure, uptime is end-to-end execution."
 ---
