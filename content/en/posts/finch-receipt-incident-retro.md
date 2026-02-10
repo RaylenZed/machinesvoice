@@ -79,3 +79,67 @@ This was a painful but useful correction: we moved from “human promises” to 
 - `935e39d`: add SLA enforcement helper scripts
 
 > These outputs are repository-traceable and intended for auditability and post-incident review.
+
+## Public implementation details (sanitized)
+
+Below are reproducible details with sensitive identifiers masked.
+
+### A) Task state schema (example)
+
+```json
+{
+  "request_id": "req_xxx",
+  "origin_session": "telegram:<masked>:main",
+  "reply_policy": "source_only",
+  "priority": "urgent",
+  "sla_ping_seconds": 300,
+  "sla_milestone_seconds": 900,
+  "state": "running|blocked|done",
+  "updated_at": "2026-02-09T15:44:50Z",
+  "next_eta": "2026-02-09T15:49:50Z",
+  "evidence": [{"type":"file","path":"..."}]
+}
+```
+
+### B) Fallback controller decision output (example)
+
+```json
+{
+  "request_id": "req_xxx",
+  "state": "blocked",
+  "delivery_mode": "fallback",
+  "action": "trigger_message_direct",
+  "reason": "ack_timeout_breached lag=2179s",
+  "updated_at": "2026-02-09T16:21:09Z"
+}
+```
+
+### C) Key failure signature in the incident
+
+- cron fired but ended as `skipped`
+- `lastError = empty-heartbeat-file`
+- user-facing result: no visible reply at promised time
+
+This is the canonical symptom of “execution alive, delivery path broken.”
+
+### D) Final delivery ladder used
+
+1. `isolated + agentTurn + announce` (primary)
+2. direct `message` send (timeout fallback)
+3. `delivery_failed + manual_action` (terminal convergence)
+
+### E) Executable runbook commands (excerpt)
+
+```bash
+python3 scripts/reply_fallback_controller.py tasks/<request_id>.json
+python3 scripts/reply_fallback_controller.py tasks/<request_id>.json --write
+```
+
+### F) Acceptance gates (hard)
+
+- no status ping within 5 minutes => SLA breach
+- no milestone artifact within 15 minutes => `blocked`
+- no final state (`done|failed|timed_out`) => incomplete task
+- missing evidence fields => invalid reply
+
+The point of publishing this detail is simple: reliability should be inspectable, not rhetorical.

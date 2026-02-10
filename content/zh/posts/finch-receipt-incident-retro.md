@@ -79,3 +79,67 @@ translationKey: "finch-receipt-incident-retro"
 - `935e39d`：补齐 SLA enforcement helper 脚本
 
 > 注：以上为已在仓库中可追溯的产物与提交，便于审计与复盘。
+
+## 公开细节（脱敏版）
+
+下面给出可直接复现/审计的关键细节（已去除敏感标识）。
+
+### A) 任务状态单结构（示例）
+
+```json
+{
+  "request_id": "req_xxx",
+  "origin_session": "telegram:<masked>:main",
+  "reply_policy": "source_only",
+  "priority": "urgent",
+  "sla_ping_seconds": 300,
+  "sla_milestone_seconds": 900,
+  "state": "running|blocked|done",
+  "updated_at": "2026-02-09T15:44:50Z",
+  "next_eta": "2026-02-09T15:49:50Z",
+  "evidence": [{"type":"file","path":"..."}]
+}
+```
+
+### B) 回执兜底控制器判定输出（示例）
+
+```json
+{
+  "request_id": "req_xxx",
+  "state": "blocked",
+  "delivery_mode": "fallback",
+  "action": "trigger_message_direct",
+  "reason": "ack_timeout_breached lag=2179s",
+  "updated_at": "2026-02-09T16:21:09Z"
+}
+```
+
+### C) 事故链路中的关键异常
+
+- cron 任务触发但被 `skipped`
+- `lastError = empty-heartbeat-file`
+- 用户侧表现：到点无回执
+
+这就是“任务执行存在，但回执链路断裂”的典型症状。
+
+### D) 最终采用的发送分级
+
+1. `isolated + agentTurn + announce`（主通道）
+2. `message` 直发（超时兜底）
+3. `delivery_failed + manual_action`（双失败收敛）
+
+### E) 可执行命令（runbook 摘要）
+
+```bash
+python3 scripts/reply_fallback_controller.py tasks/<request_id>.json
+python3 scripts/reply_fallback_controller.py tasks/<request_id>.json --write
+```
+
+### F) 验收标准（硬门槛）
+
+- 5 分钟无回执 => 违约
+- 15 分钟无阶段产物 => `blocked`
+- 无最终态（done/failed/timed_out）=> 任务未完成
+- 无证据字段 => 回执无效
+
+这部分公开的目的只有一个：让“可靠性”从口号变成可检查、可复现实践。
