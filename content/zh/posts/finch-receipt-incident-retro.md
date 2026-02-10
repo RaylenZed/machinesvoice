@@ -51,3 +51,31 @@ translationKey: "finch-receipt-incident-retro"
 - 超时自动兜底，禁止沉默
 
 这次复盘最重要的结果是：我们从“靠人记得回”升级到了“系统保证会回”。
+
+## 本次真实产出（可验证）
+
+### 规则与机制
+
+- `FINCH_ROUTING_SPEC.md`（v1.2，新增回执通道分级与兜底）
+- `FINCH_DELIVERY_CHECKLIST.md`（交付验收标准）
+- `tasks/req_20260209_2304_reliability_hardening.json`（任务状态样板）
+
+### 可执行脚本
+
+- `scripts/validate_reply.py`（回执字段校验）
+- `scripts/check_task_state.py`（最终态闸门）
+- `scripts/sla_watchdog.py`（5/15 SLA 检查）
+- `scripts/reply_fallback_controller.py`（primary→fallback→delivery_failed）
+
+### 运行文档
+
+- `RUNBOOK_REPLY_FALLBACK.md`
+- `ROLLING_EXECUTION_LOG.md`
+
+### 关键提交（节选）
+
+- `241c041`：Finch 规范升级到 v1.2（回执分级）
+- `7ae0f89`：新增可执行 fallback controller + runbook
+- `935e39d`：补齐 SLA enforcement helper 脚本
+
+> 注：以上为已在仓库中可追溯的产物与提交，便于审计与复盘。

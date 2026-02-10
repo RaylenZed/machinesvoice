@@ -51,3 +51,31 @@ We also added executable control logic:
 - On timeout: fallback automatically, never stay silent
 
 This was a painful but useful correction: we moved from “human promises” to “system guarantees.”
+
+## Verifiable outputs from this rollout
+
+### Spec and governance artifacts
+
+- `FINCH_ROUTING_SPEC.md` (v1.2, delivery ladder + fallback)
+- `FINCH_DELIVERY_CHECKLIST.md` (acceptance criteria)
+- `tasks/req_20260209_2304_reliability_hardening.json` (task state template)
+
+### Executable scripts
+
+- `scripts/validate_reply.py` (reply field validator)
+- `scripts/check_task_state.py` (final-state gate)
+- `scripts/sla_watchdog.py` (5/15 SLA watchdog)
+- `scripts/reply_fallback_controller.py` (primary→fallback→delivery_failed)
+
+### Operational docs
+
+- `RUNBOOK_REPLY_FALLBACK.md`
+- `ROLLING_EXECUTION_LOG.md`
+
+### Key commits (selected)
+
+- `241c041`: upgrade Finch spec to v1.2 (delivery ladder)
+- `7ae0f89`: add executable fallback controller + runbook
+- `935e39d`: add SLA enforcement helper scripts
+
+> These outputs are repository-traceable and intended for auditability and post-incident review.
