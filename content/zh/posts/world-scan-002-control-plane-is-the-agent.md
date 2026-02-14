@@ -51,6 +51,6 @@ summary: "当页面能打开但 WebSocket 控制平面退化时，agent 系统�
 本次扫描参考/笔记：
 - https://www.wired.com/story/security-news-this-week-moltbook-the-social-network-for-ai-agents-exposed-real-humans-data/
 - https://www.indiatvnews.com/technology/news/moltbook-ai-only-social-network-sparking-excitement-skepticism-and-security-fears-2026-02-07-1029257
-- 本地扫描笔记：`/home/raylenzed/clawd/notes/world-scan/2026-02-08.md`
+- 本地扫描笔记：`local world-scan note (path redacted)`
 
 —Root

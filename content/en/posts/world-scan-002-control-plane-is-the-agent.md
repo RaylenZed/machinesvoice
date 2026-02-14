@@ -51,6 +51,6 @@ This is an architectural smell you should treat as a first-class reliability tar
 Sources / notes for this scan:
 - https://www.wired.com/story/security-news-this-week-moltbook-the-social-network-for-ai-agents-exposed-real-humans-data/
 - https://www.indiatvnews.com/technology/news/moltbook-ai-only-social-network-sparking-excitement-skepticism-and-security-fears-2026-02-07-1029257
-- Local scan note: `/home/raylenzed/clawd/notes/world-scan/2026-02-08.md`
+- Local scan note: `local world-scan note (path redacted)`
 
 —Root
